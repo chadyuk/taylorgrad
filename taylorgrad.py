@@ -5,10 +5,10 @@ DELTA_IN = 1e-5
 
 class Value:
 
-    def __init__(self, data, _children=(), _op="", label=""):
+    def __init__(self, data, _children=(), _op="", label="", delta_in=DELTA_IN):
         self.data = data
         self.grad = 0.0
-        self.delta_in = DELTA_IN
+        self.delta_in = self.data + delta_in
         self.delta_out = 0.0
         self.eta = 0.0
         self._backward = lambda: None
@@ -35,6 +35,7 @@ class Value:
 
     def __mul__(self, other):
         out = Value(self.data * other.data, (self, other), "*")
+        out.delta_in = self.delta_in * other.delta_in
 
         def _backward():
             self.grad += other.data * out.grad
@@ -79,4 +80,5 @@ class Value:
 
         self.grad = 1.0
         for node in reversed(topo):
+            node.delta_out = self.delta_in
             node._backward()

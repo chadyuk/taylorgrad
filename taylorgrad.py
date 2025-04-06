@@ -3,6 +3,7 @@ import numpy as np
 
 DELTA_IN = 1e-5
 
+
 class Value:
 
     def __init__(self, data, _children=(), _op="", label="", delta_in=DELTA_IN):
@@ -60,6 +61,7 @@ class Value:
         def _backward():
             self.grad += (1 - t**2) * out.grad
             self.delta_out = out.delta_out
+
         out._backward = _backward
 
         return out

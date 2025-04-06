@@ -7,11 +7,10 @@ setup(
     install_requires=[
         'numpy>=2.2.2',
         'setuptools==72.1.0',
-        'pytest==7.4.4',
+        'pytest==8.3.4',
     ],
     author='Alex Chadyuk',
     description='Adaptive learning rate for stochastic gradient descent',
     url='https://github.com/chadyuk/taylorgrad',
     license='MIT',
-    author_email='alex@chadyuk.com',
 )
